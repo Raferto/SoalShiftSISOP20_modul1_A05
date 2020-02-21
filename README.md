@@ -335,6 +335,7 @@ done
 ```
 3b
 ```bash
+5 6-23/8 * * 0-5 bash "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Soal3a.sh"
 ```
 3c
 ```bash
