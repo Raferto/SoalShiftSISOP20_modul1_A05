@@ -142,7 +142,7 @@ elif [[ $t -eq 23 ]]; then
   en=($(echo ${en[@]} | tr a-z x-za-w))
 fi
 
-mv "/home/raferto/Documents/4. Sisop/Praktikum 1/Password/$1" "/home/raferto/Documents/4. Sisop/Praktikum 1/Password/$en.txt"
+mv "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 2/Password/$1" "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 2/Password/$en.txt"
 ```
 Penjelasan:
 ```bash
