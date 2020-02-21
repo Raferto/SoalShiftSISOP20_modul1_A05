@@ -69,7 +69,7 @@ pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
 if [[ ${@:1} =~ [^a-zA-Z] ]]; then
   echo INVALID
 else
-  echo $pass > "/home/raferto/Documents/4. Sisop/Praktikum 1/Password/${@:1}.txt"
+  echo $pass > "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 2/Password/${@:1}.txt"
 fi
 ```
 Penjelasan:
@@ -84,7 +84,7 @@ if [[ ${@:1} =~ [^a-zA-Z] ]]; then
 ```
 Digunakan untuk mengecek apakah input argumen hanya terdiri dari alphabet
 ```bash
-echo $pass > "/home/raferto/Documents/4. Sisop/Praktikum 1/Password/${@:1}.txt"
+echo $pass > "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 2/Password/${@:1}.txt"
 ```
 Jika input argumen benar, maka file .txt dibuat<br><br>
 **Enkripsi**
