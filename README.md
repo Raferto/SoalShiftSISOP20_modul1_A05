@@ -340,12 +340,12 @@ for (( i = 2; i < 29; i++ )); do
   wget -a "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/wget.log"  "https://loremflickr.com/320/240/cat" -O "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/pdkt_kusuma_${i}"
 done
 ```
-Digunakan untuk mendownload 28 gambar dari https://loremflickr.com/320/240/cat. Kemudian dilakukan loop. <br>
+Digunakan untuk mendownload 28 gambar dari https://loremflickr.com/320/240/cat serta membuat log. Kemudian dilakukan loop. <br>
 3b
 ```awk
 5 6-23/8 * * 0-5 bash "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Soal3a.sh"
 ```
-Crontab untuk menjalankan Soal3a.sh setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
+Crontab untuk menjalankan Soal3a.sh setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.<br>
 3c
 ```bash
 #!/bin/bash
@@ -398,4 +398,4 @@ BEGIN { FS = "[/ || ' ']" }
    print $12 >"/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/Location.log"
  }
 ```
-Digunakan untuk mengambil data dari log untuk mencari duplicate.
+Digunakan untuk mengambil data dari log untuk mencari duplicate. Data diambil dengan loop read kemudian ditaruh array dan file duplicatenya dihapus dengan sort. Di cek dengan membandingkan satu per satu, jika sama ditaruh ke folder kenangan dan sisanya ditaruh di folder duplicate. Karena foldernya diberi nomor, nomornya disimpan di numberin.log.
