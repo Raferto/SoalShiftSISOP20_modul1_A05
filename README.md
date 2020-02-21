@@ -330,6 +330,7 @@ dengan format filename "duplicate_nomor". Lalu semua gambar yang tersisa dipinda
 ekstensi ".log.bak".<br>
 
 **Jawaban**
+3a
 ```bash
 #!/bin/bash
 
@@ -339,10 +340,12 @@ for (( i = 2; i < 29; i++ )); do
   wget -a "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/wget.log"  "https://loremflickr.com/320/240/cat" -O "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/pdkt_kusuma_${i}"
 done
 ```
+Digunakan untuk mendownload 28 gambar dari https://loremflickr.com/320/240/cat. Kemudian dilakukan loop. <br>
 3b
 ```awk
 5 6-23/8 * * 0-5 bash "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Soal3a.sh"
 ```
+Crontab untuk menjalankan Soal3a.sh setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
 3c
 ```bash
 #!/bin/bash
@@ -385,6 +388,7 @@ do
   echo $line >> "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/wget.log.bak"
 done < "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/wget.log"
 ```
+Digunakan untuk memisahkan ke folder duplicate dan kenangan.
 ```bash
 BEGIN { FS = "[/ || ' ']" }
 
@@ -394,3 +398,4 @@ BEGIN { FS = "[/ || ' ']" }
    print $12 >"/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/Location.log"
  }
 ```
+Digunakan untuk mengambil data dari log untuk mencari duplicate.
