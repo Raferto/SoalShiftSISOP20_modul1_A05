@@ -1,4 +1,4 @@
-# -SoalShiftSISOP20_modul1_A05-
+# SoalShiftSISOP20_modul1_A05
 
 ## Soal 1
 Kita diminta untuk membuat laporan berdasarkan data yang ada pada file “Sample-Superstore.tsv”.Laporan yang diminta berupa:
