@@ -321,4 +321,6 @@ Kemudian membuat script untuk mengidentifikasi gambar yang identik dari keseluru
 gambar yang terdownload. Bila terindikasi sebagai gambar yang identik, maka
 disisakan 1 gambar dan sisa file identik tersebut dipindahkan ke dalam folder ./duplicate
 dengan format filename "duplicate_nomor". Lalu semua gambar yang tersisa dipindahkan ke folder ./kenangan dengan format filename "kenangan_nomor". Setelah tidak ada gambar di current directory, dilakukan backup seluruh log menjadi
-ekstensi ".log.bak".
+ekstensi ".log.bak".<br>
+
+**Jawaban**
