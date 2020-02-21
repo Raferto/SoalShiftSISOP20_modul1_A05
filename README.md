@@ -329,7 +329,7 @@ disisakan 1 gambar dan sisa file identik tersebut dipindahkan ke dalam folder ./
 dengan format filename "duplicate_nomor". Lalu semua gambar yang tersisa dipindahkan ke folder ./kenangan dengan format filename "kenangan_nomor". Setelah tidak ada gambar di current directory, dilakukan backup seluruh log menjadi
 ekstensi ".log.bak".<br>
 
-**Jawaban**
+**Jawaban**<br>
 3a
 ```bash
 #!/bin/bash
@@ -340,12 +340,12 @@ for (( i = 2; i < 29; i++ )); do
   wget -a "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/wget.log"  "https://loremflickr.com/320/240/cat" -O "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/pdkt_kusuma_${i}"
 done
 ```
-Digunakan untuk mendownload 28 gambar dari https://loremflickr.com/320/240/cat serta membuat log. Kemudian dilakukan loop. <br>
+Digunakan untuk mendownload 28 gambar dari https://loremflickr.com/320/240/cat serta membuat log. Kemudian dilakukan loop. <br><br>
 3b
 ```awk
 5 6-23/8 * * 0-5 bash "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Soal3a.sh"
 ```
-Crontab untuk menjalankan Soal3a.sh setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.<br>
+Crontab untuk menjalankan Soal3a.sh setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.<br><br>
 3c
 ```bash
 #!/bin/bash
