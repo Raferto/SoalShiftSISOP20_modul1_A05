@@ -58,6 +58,33 @@ END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {print
 -F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. FNR == 1 {next} digunakan untuk meng-exclude baris pertama. Jika kolom ke-11 berisi “Illinois” (jawaban dari no 1.b), array dengan key arg ke-17 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 10 baris teratas kemudian print nama produknya. Nama produk terpanjang memiliki 11 kata, maka yang di print adalah arg ke-2 sampai arg ke-12.
 ## Soal 2
 Kita diminta untuk membuat password random yang terdiri dari 28 karakter, terdapat huruf besar, huruf kecil, dan angka. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argument yang diinputkan dan hanya berupa alphabet. Kemudian nama filenya akan dienkripsi dengan konversi huruf yang disesuaikan dengan jam dibuatnya file tersebut. Lalu dibuat dekripsinya supaya nama file bisa kembali.
+
+```bash
+#!/bin/bash
+pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
+# echo $pass ${@:1}
+
+if [[ ${@:1} =~ [^a-zA-Z] ]]; then
+  echo INVALID
+else
+  echo $pass > "/home/raferto/Documents/4. Sisop/Praktikum 1/Password/${@:1}.txt"
+fi
+```
+Penjelasan:
+```bash
+pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
+# echo $pass ${@:1}
+```
+Digunakan untuk generate password random sebanyak 28 karakter terdiri dari huruf kecil, huruf besar, dan angka
+```bash
+if [[ ${@:1} =~ [^a-zA-Z] ]]; then
+  echo INVALID
+```
+Digunakan untuk mengecek apakah input argumen hanya terdiri dari alphabet
+```bash
+echo $pass > "/home/raferto/Documents/4. Sisop/Praktikum 1/Password/${@:1}.txt"
+```
+Jika input argumen benar, maka file .txt dibuat
 ## Soal 3
 Kita diminta membuat script untuk mendownload 28 gambar dari "https://loremflickr.com/320/240/cat " menggunakan command wget dan menyimpan file dengan nama "pdkt_kusuma_NO" serta menyimpan log message wget ke file “wget.log”.
 script tersebut hanya berjalan 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
