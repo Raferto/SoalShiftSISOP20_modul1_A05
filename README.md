@@ -77,7 +77,7 @@ Penjelasan:
 pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
 # echo $pass ${@:1}
 ```
-Digunakan untuk generate password random sebanyak 28 karakter terdiri dari huruf kecil, huruf besar, dan angka
+Digunakan untuk generate password random sebanyak 28 karakter terdiri dari huruf kecil, huruf besar, dan angka. "cat" digunakan untuk memanipulasi file, "tr" untuk menentukan karakter apa saja yang termasuk dalam string yang akan dibuat. "-dc" untuk memberikan constrain isi string, "fold" digunakan untuk menentukan panjang karakter, "-w" digunakan untuk mengubah default menjadi width, "head -n 1" digunakan untuk mengeluarkan baris pertama dari file yang nantinya akan dihasilkan oleh fungsi "cat".
 ```bash
 if [[ ${@:1} =~ [^a-zA-Z] ]]; then
   echo INVALID
