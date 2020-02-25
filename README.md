@@ -12,50 +12,50 @@ Kita diminta untuk membuat laporan berdasarkan data yang ada pada file “Sample
 echo -e "\n1a"
 echo -e "Region dengan profit paling sedikit:"
 awk -F "\t" 'FNR == 1 {next} {arr[$13]+=$21} 
-END {for(i in arr) {print arr[i],i}}' ~/no1.tsv | sort -gk1 | awk '(NR<=1) {print $2}'
+END {for(i in arr) {print arr[i],i}}' ~/no1.tsv | sort -gk1 | awk '(NR<=1) {for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}'
 
 echo -e "\n1b"
 echo -e "State dengan profit paling sedikit:"
 awk -F  "\t" 'FNR == 1 {next}{if($13 == "Central") arr[$11]+=$21} 
-END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=2) {print $2}'
+END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=2) {for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}'
 
 echo -e "\n1c"
 echo -e "Produk dengan profit paling sedikit di Texas:"
 awk -F  "\t" 'FNR == 1 {next}{if($11 == "Texas") arr[$17]+=$21} 
-END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}'
+END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}'
 
 echo -e "\nProduk dengan profit paling sedikit di Illiois:"
 awk -F  "\t" 'FNR == 1 {next}{if($11 == "Illinois") arr[$17]+=$21} 
-END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}'
+END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}'
 ```
 Penjelasan:
 ```bash
 echo -e "\n1a"
 echo -e "Region dengan profit paling sedikit:"
 awk -F "\t" 'FNR == 1 {next} {arr[$13]+=$21} 
-END {for(i in arr) {print arr[i],i}}' ~/no1.tsv | sort -gk1 | awk '(NR<=1) {print $2}'
+END {for(i in arr) {print arr[i],i}}' ~/no1.tsv | sort -gk1 | awk '(NR<=1) {for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}'
 ```
 -F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. FNR == 1 {next} digunakan untuk meng-exclude baris pertama. Kolom data yang berisi region dan profit dimasukkan ke array. Array dengan key arg ke-13 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 1 baris teratas kemudian print region nya.
 ```bash
 echo -e "\n1b"
 echo -e "State dengan profit paling sedikit:"
 awk -F  "\t" 'FNR == 1 {next}{if($13 == "Central") arr[$11]+=$21} 
-END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=2) {print $2}'
+END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=2) {for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}'
 ```
 -F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. FNR == 1 {next} digunakan untuk meng-exclude baris pertama. Jika kolom ke-13 berisi “Central” (jawaban dari no 1.a), array dengan key arg ke-11 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 2 baris teratas kemudian print state nya.
 ```bash
 echo -e "\n1c"
 echo -e "Produk dengan profit paling sedikit di Texas:"
 awk -F  "\t" 'FNR == 1 {next}{if($11 == "Texas") arr[$17]+=$21} 
-END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}'
+END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}'
 ```
--F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. FNR == 1 {next} digunakan untuk meng-exclude baris pertama. Jika kolom ke-11 berisi “Texas” (jawaban dari no 1.b), array dengan key arg ke-17 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 10 baris teratas kemudian print nama produknya. Nama produk terpanjang memiliki 11 kata, maka yang di print adalah arg ke-2 sampai arg ke-12.
+-F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. FNR == 1 {next} digunakan untuk meng-exclude baris pertama. Jika kolom ke-11 berisi “Texas” (jawaban dari no 1.b), array dengan key arg ke-17 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 10 baris teratas kemudian print nama produknya.
 ```bash
 echo -e "\nProduk dengan profit paling sedikit di Illiois:"
 awk -F  "\t" 'FNR == 1 {next}{if($11 == "Illinois") arr[$17]+=$21} 
-END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12}'
+END {for(i in arr) print arr[i],i}' ~/no1.tsv | sort -gk1 | awk '(NR<=10) {for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}'
 ```
--F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. FNR == 1 {next} digunakan untuk meng-exclude baris pertama. Jika kolom ke-11 berisi “Illinois” (jawaban dari no 1.b), array dengan key arg ke-17 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 10 baris teratas kemudian print nama produknya. Nama produk terpanjang memiliki 11 kata, maka yang di print adalah arg ke-2 sampai arg ke-12.
+-F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. FNR == 1 {next} digunakan untuk meng-exclude baris pertama. Jika kolom ke-11 berisi “Illinois” (jawaban dari no 1.b), array dengan key arg ke-17 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 10 baris teratas kemudian print nama produknya.
 ## Soal 2
 Kita diminta untuk membuat password random yang terdiri dari 28 karakter, terdapat huruf besar, huruf kecil, dan angka. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argument yang diinputkan dan hanya berupa alphabet. Kemudian nama filenya akan dienkripsi dengan konversi huruf yang disesuaikan dengan jam dibuatnya file tersebut. Lalu dibuat dekripsinya supaya nama file bisa kembali.<br>
 
