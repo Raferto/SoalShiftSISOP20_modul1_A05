@@ -311,7 +311,7 @@ Digunakan untuk mengembalikan nama file hasil enkripsi menjadi nama file yang se
 
 ## Soal 3
 Kita diminta membuat script untuk mendownload 28 gambar dari "https://loremflickr.com/320/240/cat " menggunakan command wget dan menyimpan file dengan nama "pdkt_kusuma_NO" serta menyimpan log message wget ke file “wget.log”.
-script tersebut hanya berjalan 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
+script tersebut hanya berjalan setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
 Kemudian membuat script untuk mengidentifikasi gambar yang identik dari keseluruhan
 gambar yang terdownload. Bila terindikasi sebagai gambar yang identik, maka
 disisakan 1 gambar dan sisa file identik tersebut dipindahkan ke dalam folder ./duplicate
