@@ -316,7 +316,7 @@ Kendala selama mengerjakan soal:
 - Tidak memastikan harus ada huruf besar, huruf kecil, dan angka apabila panjang string password lebih pendek.<br>
 - Mencari letak directory file sehingga file tidak bisa dipindah.<br><br>
 **Screenshot Hasil**<br>
-
+![2](https://user-images.githubusercontent.com/57932819/75609195-16159c80-5b39-11ea-9d3b-45c436a90c0c.png)
 
 ## Soal 3
 Kita diminta membuat script untuk mendownload 28 gambar dari "https://loremflickr.com/320/240/cat " menggunakan command wget dan menyimpan file dengan nama "pdkt_kusuma_NO" serta menyimpan log message wget ke file “wget.log”.
