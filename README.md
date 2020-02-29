@@ -390,4 +390,6 @@ Digunakan untuk memisahkan ke folder duplicate dan kenangan dengan cara mengambi
 Kendala selama mengerjakan soal:
 - Mencari letak directory file sehingga file tidak bisa dipindah dan terjadi error ketika dicoba di run setelah penyesuaian folder.<br><br>
 **Screenshot Hasil**<br>
-
+![3a](https://user-images.githubusercontent.com/57932819/75609230-583ede00-5b39-11ea-8799-0bd76a2c1565.png)
+![3b](https://user-images.githubusercontent.com/57932819/75609236-6260dc80-5b39-11ea-9983-52b81632283e.png)
+![3c](https://user-images.githubusercontent.com/57932819/75609249-815f6e80-5b39-11ea-87f4-b284d7942a35.png)
