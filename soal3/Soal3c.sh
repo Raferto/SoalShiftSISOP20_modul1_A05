@@ -7,7 +7,7 @@ arr=$(awk -v x="$(pwd)" ' BEGIN { FS = "[/ || ]" }
       /.jpg/ {
         print $5
         getline;getline;getline;getline;getline;
-        print $14
+        print $13
       }' "$(pwd)/Foto/wget.log")
 
 declare -a array
