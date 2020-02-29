@@ -46,34 +46,34 @@ echo -e "$produk\n"
 "sed -ne" digunakan untuk mengambil baris tertentu dari output. -F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. Jika kolom ke-11 berisi jawaban dari no 1b, array dengan key arg ke-17 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 10 baris teratas kemudian print nama produknya.
 
 ## Soal 2
-Kita diminta untuk membuat password random yang terdiri dari 28 karakter, terdapat huruf besar, huruf kecil, dan angka. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argument yang diinputkan dan hanya berupa alphabet. Kemudian nama filenya akan dienkripsi dengan konversi huruf yang disesuaikan dengan jam dibuatnya file tersebut. Lalu dibuat dekripsinya supaya nama file bisa kembali.<br>
+Kita diminta untuk membuat password random yang terdiri dari 28 karakter, dan harus terdapat huruf besar, huruf kecil, dan angka. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argument yang diinputkan dan hanya berupa alphabet. Kemudian nama filenya akan dienkripsi dengan konversi huruf yang disesuaikan dengan jam dibuatnya file tersebut. Lalu dibuat dekripsinya supaya nama file bisa kembali.<br>
 
 **Jawaban**
 
 ```bash
 #!/bin/bash
-pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
-# echo $pass ${@:1}
+pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | grep [[:upper:]] | grep [[:lower:]] | grep [[:digit:]] | head -n 1)
 
 if [[ ${@:1} =~ [^a-zA-Z] ]]; then
   echo INVALID
 else
-  echo $pass > "/home/raferto/Documents/4. Sisop/Praktikum 1/soal2/Password/${@:1}.txt"
+  echo $pass > "$(pwd)/${@:1}.txt"
 fi
+
 ```
 Penjelasan:
 ```bash
-pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
-# echo $pass ${@:1}
+pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | grep [[:upper:]] | grep [[:lower:]] | grep [[:digit:]] | head -n 1)
+
 ```
-Digunakan untuk generate password random sebanyak 28 karakter terdiri dari huruf kecil, huruf besar, dan angka. "cat" digunakan untuk memanipulasi file, "tr" untuk menentukan karakter apa saja yang termasuk dalam string yang akan dibuat. "-dc" untuk memberikan constrain isi string, "fold" digunakan untuk menentukan panjang karakter, "-w" digunakan untuk mengubah default menjadi width, "head -n 1" digunakan untuk mengeluarkan baris pertama dari file yang nantinya akan dihasilkan oleh fungsi "cat".
+Digunakan untuk generate password random sebanyak 28 karakter terdiri dari huruf kecil, huruf besar, dan angka. "cat" digunakan untuk memanipulasi file, "tr" untuk menentukan karakter apa saja yang termasuk dalam string yang akan dibuat. "-dc" untuk memberikan constrain isi string, "fold" digunakan untuk menentukan panjang karakter, "-w" digunakan untuk mengubah default menjadi width, "grep (upper/lower/digit) " digunakan untuk memastikan terdapat huruf kecil, huruf besar dan angka, "head -n 1" digunakan untuk mengeluarkan baris pertama dari file yang nantinya akan dihasilkan oleh fungsi "cat".
 ```bash
 if [[ ${@:1} =~ [^a-zA-Z] ]]; then
   echo INVALID
 ```
 Digunakan untuk mengecek apakah input argumen hanya terdiri dari alphabet
 ```bash
-echo $pass > "/home/raferto/Documents/4. Sisop/Praktikum 1/soal2/Password/${@:1}.txt"
+echo $pass > "$(pwd)/${@:1}.txt"
 ```
 Jika input argumen benar, maka file .txt dibuat<br><br>
 **Enkripsi**
@@ -131,7 +131,7 @@ elif [[ $t -eq 23 ]]; then
   en=($(echo ${en[@]} | tr a-z x-za-w))
 fi
 
-mv "/home/raferto/Documents/4. Sisop/Praktikum 1/soal2/Password/$1" "/home/raferto/Documents/4. Sisop/Praktikum 1/soal2/Password/$en.txt"
+mv "$(pwd)/Password/$1" "$(pwd)/Password/$en.txt"
 ```
 Penjelasan:
 ```bash
@@ -323,11 +323,12 @@ ekstensi ".log.bak".<br>
 ```bash
 #!/bin/bash
 
-wget -o "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/wget.log"  "https://loremflickr.com/320/240/cat" -O "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/pdkt_kusuma_1"
+wget -o "$(pwd)/Foto/wget.log"  "https://loremflickr.com/320/240/cat" -O "$(pwd)/Foto/pdkt_kusuma_1"
 
 for (( i = 2; i < 29; i++ )); do
-  wget -a "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/wget.log"  "https://loremflickr.com/320/240/cat" -O "/home/raferto/Documents/4. Sisop/Praktikum 1/Soal 3/Foto/pdkt_kusuma_${i}"
+  wget -a "$(pwd)/Foto/wget.log"  "https://loremflickr.com/320/240/cat" -O "$(pwd)/Foto/pdkt_kusuma_${i}"
 done
+
 ```
 Digunakan untuk mendownload 28 gambar dari https://loremflickr.com/320/240/cat serta membuat log. Kemudian dilakukan loop. <br><br>
 3b
@@ -339,52 +340,40 @@ Crontab untuk menjalankan Soal3a.sh setiap 8 jam dimulai dari jam 6.05 setiap ha
 ```bash
 #!/bin/bash
 
-declare -a arr
+ken=$(awk '{print $1}' "$(pwd)/Foto/num.txt")
+dup=$(awk '{print $2}' "$(pwd)/Foto/num.txt")
 
-awk -f Soal3c1.awk '/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/wget.log'
-while IFS= read -r line
-do
-  arr+=(${line:: -1});
-done < "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/Location.log"
+arr=$(awk -v x="$(pwd)" ' BEGIN { FS = "[/ || ]" }
+      /.jpg/ {
+        print $5
+        getline;getline;getline;getline;getline;
+        print $14
+      }' "$(pwd)/Foto/wget.log")
 
-
-ken=$(awk '{print $1}' '/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/numbering.log')
-dup=$(awk '{print $2}' '/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/numbering.log')
-
-uniq=($(printf "%s\n" "${arr[@]}" | sort -u | tr '\n' ' '))
-len=${#uniq[@]}-28;
-len2=${#arr[@]};
-
-for (( i = 0; i < $len; i++ )); do
-  for (( j = 0; j < $len2; j=$j+2 )); do
-    if [[ ${arr[j]} == ${uniq[i]} ]]; then
-      let ken=$ken+1
-      mv "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/${arr[j+1]}" "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/kenangan/kenangan_$ken"
-
-      for(( j=$j+2 ; j< $len2; j=$j+2 )); do
-        if [[ ${arr[j]} == ${uniq[i]} ]]; then
-          let dup=$dup+1
-          mv "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/${arr[j+1]}" "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/duplicate/duplicate_$dup"
-        fi
-      done
-    fi
-  done
+declare -a array
+for item in $arr; do
+  array+=(${item::-1})
 done
 
-echo $ken $dup > "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/numbering.log"
+len=${#array[@]}
+for (( i = 1; i < $len; i+=2 )); do
+  if [ -e "$(pwd)/Foto/${array[i]}" ]; then
+    mv "$(pwd)/Foto/${array[i]}" "$(pwd)/Foto/kenangan/kenangan_$ken"
+    let ken=$ken+1
+    for (( j = i+1; j < $len; j+=2 )); do
+      if [[ ${array[j]} == ${array[i-1]} ]]; then
+        mv "$(pwd)/Foto/${array[j+1]}" "$(pwd)/Foto/duplicate/duplicate_$dup"
+        let dup=$dup+1
+      fi
+    done
+ fi
+done
+
+echo $ken $dup > "$(pwd)/Foto/num.txt"
 while IFS= read -r line
 do
-  echo $line >> "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/wget.log.bak"
-done < "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/wget.log"
-```
-Digunakan untuk memisahkan ke folder duplicate dan kenangan.
-```bash
-BEGIN { FS = "[/ || ' ']" }
+  echo $line >> "$(pwd)/Foto/wget.log.bak"
+done < "$(pwd)/Foto/wget.log"
 
- /Location/ {
-   print $5 >"/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/Location.log"
-   getline;getline;getline;getline;getline
-   print $12 >"/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/Location.log"
- }
 ```
-Digunakan untuk mengambil data dari log untuk mencari duplicate. Data diambil dengan loop read kemudian ditaruh array dan file duplicatenya dihapus dengan sort. Di cek dengan membandingkan satu per satu, jika sama ditaruh ke folder kenangan dan sisanya ditaruh di folder duplicate. Karena foldernya diberi nomor, nomornya disimpan di numberin.log.
+Digunakan untuk memisahkan ke folder duplicate dan kenangan dengan cara mengambil data dari log dan kemudian mengambil foto yang didownload pertama kali dan memindahkannya ke folder kenangan, selanjutnya memindahkan semua gambar yang sama dengan gambar tersebut ke folder duplicate. Untuk penomoron sendiri digunakan num.txt agar memudahkan pemberian nomor.
