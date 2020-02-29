@@ -312,6 +312,12 @@ fi
 ```
 Digunakan untuk mengembalikan nama file hasil enkripsi menjadi nama file yang sebenarnya
 
+Kendala selama mengerjakan soal:
+- Tidak memastikan harus ada huruf besar, huruf kecil, dan angka apabila panjang string password lebih pendek.<br><br>
+- Mencari letak directory file sehingga file tidak bisa dipindah.<br><br>
+**Screenshot Hasil**<br>
+
+
 ## Soal 3
 Kita diminta membuat script untuk mendownload 28 gambar dari "https://loremflickr.com/320/240/cat " menggunakan command wget dan menyimpan file dengan nama "pdkt_kusuma_NO" serta menyimpan log message wget ke file “wget.log”.
 script tersebut hanya berjalan setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu.
@@ -380,3 +386,8 @@ done < "$(pwd)/Foto/wget.log"
 
 ```
 Digunakan untuk memisahkan ke folder duplicate dan kenangan dengan cara mengambil data dari log dan kemudian mengambil foto yang didownload pertama kali dan memindahkannya ke folder kenangan, selanjutnya memindahkan semua gambar yang sama dengan gambar tersebut ke folder duplicate. Untuk penomoron sendiri digunakan num.txt agar memudahkan pemberian nomor.
+
+Kendala selama mengerjakan soal:
+- Mencari letak directory file sehingga file tidak bisa dipindah dan terjadi error ketika dicoba di run setelah penyesuaian folder.<br><br>
+**Screenshot Hasil**<br>
+
