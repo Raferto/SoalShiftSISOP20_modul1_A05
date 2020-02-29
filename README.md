@@ -313,7 +313,7 @@ fi
 Digunakan untuk mengembalikan nama file hasil enkripsi menjadi nama file yang sebenarnya
 
 Kendala selama mengerjakan soal:
-- Tidak memastikan harus ada huruf besar, huruf kecil, dan angka apabila panjang string password lebih pendek.<br><br>
+- Tidak memastikan harus ada huruf besar, huruf kecil, dan angka apabila panjang string password lebih pendek.<br>
 - Mencari letak directory file sehingga file tidak bisa dipindah.<br><br>
 **Screenshot Hasil**<br>
 
