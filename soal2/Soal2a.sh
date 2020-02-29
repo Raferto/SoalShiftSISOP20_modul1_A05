@@ -7,5 +7,5 @@ pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | grep [[:upper:]] | g
 if [[ ${@:1} =~ [^a-zA-Z] ]]; then
   echo INVALID
 else
-  echo $pass > "$(pwd)/${@:1}.txt"
+  echo $pass > "$(pwd)/Password/${@:1}.txt"
 fi
