@@ -31,20 +31,23 @@ Penjelasan:
 region=$(awk -F "\t" 'FNR == 1 {next} {arr[$13]+=$21} END {for(i in arr) {print arr[i],i}}' no1.tsv | sort -gk1 | awk '{print $2}' | head -1)
 echo "$region"
 ```
--F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. FNR == 1 {next} digunakan untuk meng-exclude baris pertama. Kolom data yang berisi region dan profit dimasukkan ke array. Array dengan key arg ke-13 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 1 baris teratas kemudian print region nya.
+```-F``` digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan ```"\t"```. ```FNR == 1 {next}``` digunakan untuk meng-exclude baris pertama. Kolom data yang berisi region dan profit dimasukkan ke array. Array dengan key arg ke-13 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 1 baris teratas kemudian print region nya.
 ```bash
 state=$(awk -F  "\t" -v region=$region '($13~region) {arr[$11]+=$21} END {for(i in arr) print arr[i],i}' no1.tsv | sort -gk1 | head -2 | awk '{print $2}')
 echo "$state"
 ```
--F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. Jika kolom ke-13 berisi jawaban dari no 1a, array dengan key arg ke-11 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 2 baris teratas kemudian print state nya.
+```-F``` digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan ```"\t"```. Jika kolom ke-13 berisi jawaban dari no 1a, array dengan key arg ke-11 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 2 baris teratas kemudian print state nya.
 ```bash
 st1=$(echo "$state" | sed -ne '1p')
 st2=$(echo "$state" | sed -ne '2p')
 produk=$(awk -F  "\t" -v st1="$st1" -v st2="$st2" '($11~st1) || ($11~st2) {arr[$17]+=$21} END {for(i in arr) print arr[i],i}' no1.tsv | sort -gk1 | head -10 | awk '{for(i=2;i<NF;i++) printf "%s", $i OFS; printf "%s", $NF ORS}')
 echo -e "$produk\n"
 ```
-"sed -ne" digunakan untuk mengambil baris tertentu dari output. -F digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan “\t”. Jika kolom ke-11 berisi jawaban dari no 1b, array dengan key arg ke-17 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 10 baris teratas kemudian print nama produknya.
-
+```sed -ne``` digunakan untuk mengambil baris tertentu dari output. ```-F``` digunakan untuk memisahkan kolom, karena pada data pemisahnya adalah tab, maka digunakan ```"\t"```. Jika kolom ke-11 berisi jawaban dari no 1b, array dengan key arg ke-17 diisi sum arg ke-21 (profit). Print array ke-i dan i. Lalu dilakukan sorting secara ascending pada profit dan diambil 10 baris teratas kemudian print nama produknya.<br><br>
+Kendala selama mengerjakan soal:
+- Tidak memberi tanda ```"``` pada saat menyimpan hasil output 1b ke sebuah variabel sehingga output 1c salah.<br><br>
+**Screenshot Hasil**<br>
+![1](https://user-images.githubusercontent.com/61036923/75608717-b87f5100-5b34-11ea-9840-d93095f2d4a6.png)
 ## Soal 2
 Kita diminta untuk membuat password random yang terdiri dari 28 karakter, dan harus terdapat huruf besar, huruf kecil, dan angka. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argument yang diinputkan dan hanya berupa alphabet. Kemudian nama filenya akan dienkripsi dengan konversi huruf yang disesuaikan dengan jam dibuatnya file tersebut. Lalu dibuat dekripsinya supaya nama file bisa kembali.<br>
 
@@ -66,7 +69,7 @@ Penjelasan:
 pass=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | grep [[:upper:]] | grep [[:lower:]] | grep [[:digit:]] | head -n 1)
 
 ```
-Digunakan untuk generate password random sebanyak 28 karakter terdiri dari huruf kecil, huruf besar, dan angka. "cat" digunakan untuk memanipulasi file, "tr" untuk menentukan karakter apa saja yang termasuk dalam string yang akan dibuat. "-dc" untuk memberikan constrain isi string, "fold" digunakan untuk menentukan panjang karakter, "-w" digunakan untuk mengubah default menjadi width, "grep (upper/lower/digit) " digunakan untuk memastikan terdapat huruf kecil, huruf besar dan angka, "head -n 1" digunakan untuk mengeluarkan baris pertama dari file yang nantinya akan dihasilkan oleh fungsi "cat".
+Digunakan untuk generate password random sebanyak 28 karakter terdiri dari huruf kecil, huruf besar, dan angka. ```cat``` digunakan untuk memanipulasi file, ```tr``` untuk menentukan karakter apa saja yang termasuk dalam string yang akan dibuat. ```-dc``` untuk memberikan constrain isi string, ```fold``` digunakan untuk menentukan panjang karakter, ```-w``` digunakan untuk mengubah default menjadi width, ```grep``` (upper/lower/digit) digunakan untuk memastikan terdapat huruf kecil, huruf besar dan angka, ```head -n 1``` digunakan untuk mengeluarkan baris pertama dari file yang nantinya akan dihasilkan oleh fungsi ```cat```.
 ```bash
 if [[ ${@:1} =~ [^a-zA-Z] ]]; then
   echo INVALID
