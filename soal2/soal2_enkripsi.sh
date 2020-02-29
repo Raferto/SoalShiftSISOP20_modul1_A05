@@ -1,7 +1,7 @@
 #!/bin/bash
 
 en=${1:: -4}
-t=$(date -r Password/$1 "+%H")
+t=$(date +\%H)
 
 if [[ $t -eq 1 ]]; then
   en=($(echo ${en[@]} | tr a-z b-za))
@@ -51,4 +51,4 @@ elif [[ $t -eq 23 ]]; then
   en=($(echo ${en[@]} | tr a-z x-za-w))
 fi
 
-mv "/home/raferto/Documents/4. Sisop/Praktikum 1/soal2/Password/$1" "/home/raferto/Documents/4. Sisop/Praktikum 1/soal2/Password/$en.txt"
+mv "$(pwd)/Password/$1" "$(pwd)/Password/$en.txt"

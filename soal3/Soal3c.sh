@@ -1,39 +1,36 @@
 #!/bin/bash
 
-declare -a arr
+ken=$(awk '{print $1}' "$(pwd)/Foto/num.txt")
+dup=$(awk '{print $2}' "$(pwd)/Foto/num.txt")
 
-awk -f Soal3c1.awk '/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/wget.log'
-while IFS= read -r line
-do
-  arr+=(${line:: -1});
-done < "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/Location.log"
+arr=$(awk -v x="$(pwd)" ' BEGIN { FS = "[/ || ]" }
+      /.jpg/ {
+        print $5
+        getline;getline;getline;getline;getline;
+        print $14
+      }' "$(pwd)/Foto/wget.log")
 
-
-ken=$(awk '{print $1}' '/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/numbering.log')
-dup=$(awk '{print $2}' '/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/numbering.log')
-
-uniq=($(printf "%s\n" "${arr[@]}" | sort -u | tr '\n' ' '))
-len=${#uniq[@]}-28;
-len2=${#arr[@]};
-
-for (( i = 0; i < $len; i++ )); do
-  for (( j = 0; j < $len2; j=$j+2 )); do
-    if [[ ${arr[j]} == ${uniq[i]} ]]; then
-      let ken=$ken+1
-      mv "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/${arr[j+1]}" "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/kenangan/kenangan_$ken"
-
-      for(( j=$j+2 ; j< $len2; j=$j+2 )); do
-        if [[ ${arr[j]} == ${uniq[i]} ]]; then
-          let dup=$dup+1
-          mv "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/${arr[j+1]}" "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/duplicate/duplicate_$dup"
-        fi
-      done
-    fi
-  done
+declare -a array
+for item in $arr; do
+  array+=(${item::-1})
 done
 
-echo $ken $dup > "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/numbering.log"
+len=${#array[@]}
+for (( i = 1; i < $len; i+=2 )); do
+  if [ -e "$(pwd)/Foto/${array[i]}" ]; then
+    mv "$(pwd)/Foto/${array[i]}" "$(pwd)/Foto/kenangan/kenangan_$ken"
+    let ken=$ken+1
+    for (( j = i+1; j < $len; j+=2 )); do
+      if [[ ${array[j]} == ${array[i-1]} ]]; then
+        mv "$(pwd)/Foto/${array[j+1]}" "$(pwd)/Foto/duplicate/duplicate_$dup"
+        let dup=$dup+1
+      fi
+    done
+ fi
+done
+
+echo $ken $dup > "$(pwd)/Foto/num.txt"
 while IFS= read -r line
 do
-  echo $line >> "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/wget.log.bak"
-done < "/home/raferto/Documents/4. Sisop/Praktikum 1/soal3/Foto/wget.log"
+  echo $line >> "$(pwd)/Foto/wget.log.bak"
+done < "$(pwd)/Foto/wget.log"
